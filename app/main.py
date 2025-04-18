@@ -12,7 +12,10 @@ def get_weather() -> None:
         "key": api_key
     }
 
-    response = requests.get("https://api.weatherapi.com/v1/current.json", params=params)
+    response = requests.get(
+        "https://api.weatherapi.com/v1/current.json",
+        params=params
+    )
 
     city = response.json().get("location", {}).get("name")
     country = response.json().get("location", {}).get("country")
@@ -20,8 +23,9 @@ def get_weather() -> None:
     temperature = response.json().get("current", {}).get("temp_c")
     text = response.json().get("current", {}).get("condition", {}).get("text")
 
-    print(f"Performing request to Weather API for city Paris...")
-    print(f"{city}/{country} {localtime} Weather: {temperature} Celsius, {text}")
+    print("Performing request to Weather API for city Paris...")
+    print(f"{city}/{country} {localtime} "
+          f"Weather: {temperature} Celsius, {text}")
 
 
 if __name__ == "__main__":

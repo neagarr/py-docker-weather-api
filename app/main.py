@@ -5,7 +5,7 @@ import requests
 
 def get_weather() -> None:
     load_dotenv()
-    api_key = os.getenv("API_KEY")
+    api_key = os.getenv("API_KEY", None)
     params = {
         "q": "Paris",
         "lang": "en",
@@ -17,15 +17,17 @@ def get_weather() -> None:
         params=params
     )
 
-    city = response.json().get("location", {}).get("name")
-    country = response.json().get("location", {}).get("country")
-    localtime = response.json().get("location", {}).get("localtime")
-    temperature = response.json().get("current", {}).get("temp_c")
-    text = response.json().get("current", {}).get("condition", {}).get("text")
+    if response.status_code == 200:
 
-    print("Performing request to Weather API for city Paris...")
-    print(f"{city}/{country} {localtime} "
-          f"Weather: {temperature} Celsius, {text}")
+        city = response.json().get("location", {}).get("name")
+        country = response.json().get("location", {}).get("country")
+        localtime = response.json().get("location", {}).get("localtime")
+        temperature = response.json().get("current", {}).get("temp_c")
+        text = response.json().get("current", {}).get("condition", {}).get("text")
+
+        print("Performing request to Weather API for city Paris...")
+        print(f"{city}/{country} {localtime} "
+              f"Weather: {temperature} Celsius, {text}")
 
 
 if __name__ == "__main__":

@@ -23,7 +23,8 @@ def get_weather() -> None:
         country = response.json().get("location", {}).get("country")
         localtime = response.json().get("location", {}).get("localtime")
         temperature = response.json().get("current", {}).get("temp_c")
-        text = response.json().get("current", {}).get("condition", {}).get("text")
+        text = (response.json()
+                .get("current", {}).get("condition", {}).get("text"))
 
         print("Performing request to Weather API for city Paris...")
         print(f"{city}/{country} {localtime} "
